@@ -1,7 +1,7 @@
 package com.example.marvelapi.di
 
-import com.example.marvelapi.domain.usecase.CharactersInteractor
-import com.example.marvelapi.domain.usecase.CharactersUseCase
+import com.example.marvelapi.core.domain.usecase.CharactersInteractor
+import com.example.marvelapi.core.domain.usecase.CharactersUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

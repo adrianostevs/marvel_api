@@ -1,13 +1,14 @@
 package com.example.marvelapi.ui.detail
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.marvelapi.R
 import com.example.marvelapi.base.BaseActivity
 import com.example.marvelapi.databinding.ActivityDetailBinding
-import com.example.marvelapi.domain.model.Characters
+import com.example.marvelapi.core.domain.model.Characters
 import com.example.marvelapi.utils.ConstantsValue
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -36,6 +37,11 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
                 lifecycleScope.launch {
                     mDetailViewModel.setFavorite().collect {
                         mDetailViewModel.characters.value = it
+                        if (it.isFavorite) Toast.makeText(
+                            this@DetailActivity,
+                            "Successfully added to favorites",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }

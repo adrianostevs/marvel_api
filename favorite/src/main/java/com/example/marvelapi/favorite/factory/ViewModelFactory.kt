@@ -2,7 +2,7 @@ package com.example.marvelapi.favorite.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.marvelapi.domain.usecase.CharactersUseCase
+import com.example.marvelapi.core.domain.usecase.CharactersUseCase
 import com.example.marvelapi.favorite.ui.FavoriteViewModel
 import javax.inject.Inject
 

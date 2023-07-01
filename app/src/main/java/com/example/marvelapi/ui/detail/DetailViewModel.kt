@@ -2,8 +2,8 @@ package com.example.marvelapi.ui.detail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.marvelapi.domain.model.Characters
-import com.example.marvelapi.domain.usecase.CharactersUseCase
+import com.example.marvelapi.core.domain.model.Characters
+import com.example.marvelapi.core.domain.usecase.CharactersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow

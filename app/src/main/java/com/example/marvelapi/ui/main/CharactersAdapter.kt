@@ -6,12 +6,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.marvelapi.databinding.AdapterCharactersBinding
-import com.example.marvelapi.domain.model.Characters
+import com.example.marvelapi.core.domain.model.Characters
 
 class CharactersAdapter(
     private val mInvoke: (Characters) -> Unit
 ) :
-    ListAdapter<Characters, CharactersAdapter.MenuViewHolder>(Characters.DIFF_CALLBACK) {
+    ListAdapter<Characters, CharactersAdapter.MenuViewHolder>(
+        Characters.DIFF_CALLBACK) {
 
     inner class MenuViewHolder(private val binding: AdapterCharactersBinding) :
         RecyclerView.ViewHolder(binding.root) {
