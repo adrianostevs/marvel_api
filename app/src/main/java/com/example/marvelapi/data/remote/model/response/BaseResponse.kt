@@ -10,6 +10,10 @@ data class BaseResponse(
     val code: Int? = null,
 
     @Expose
+    @SerializedName("status")
+    val status: String? = null,
+
+    @Expose
     @SerializedName("data")
     val data: DataResponse? = null,
 

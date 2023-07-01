@@ -10,9 +10,12 @@ import kotlinx.parcelize.Parcelize
 data class ThumbnailEntity(
 
     @ColumnInfo(name = "characterId")
-    val characterId: String,
+    var characterId: Int,
 
     @ColumnInfo(name = "path")
-    val path: String,
+    var path: String,
+
+    @ColumnInfo(name = "extension")
+    val extension: String,
 
 ): Parcelable

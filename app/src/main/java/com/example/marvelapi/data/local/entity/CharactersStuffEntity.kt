@@ -15,6 +15,6 @@ data class CharactersStuffEntity(
         parentColumn = "id",
         entityColumn = "characterId"
     )
-    val thumbnail: List<ThumbnailEntity>
+    val thumbnail: ThumbnailEntity
 
 ) : Parcelable
