@@ -7,7 +7,7 @@ import com.example.marvelapi.data.local.entity.ThumbnailEntity
 
 @Database(
     entities = [CharactersEntity::class, ThumbnailEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class CharactersDatabase : RoomDatabase(){
