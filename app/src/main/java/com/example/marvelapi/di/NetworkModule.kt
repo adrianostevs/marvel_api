@@ -1,6 +1,5 @@
 package com.example.marvelapi.di
 
-import androidx.viewbinding.BuildConfig
 import com.example.marvelapi.data.remote.network.ApiService
 import dagger.Module
 import dagger.Provides
@@ -19,19 +18,14 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideClient(): OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-        .connectTimeout(15, TimeUnit.SECONDS)
-        .readTimeout(15, TimeUnit.SECONDS)
-        .build()
+        .addInterceptor(HttpLoggingInterceptor().setLevel(if (com.example.marvelapi.BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE))
+        .connectTimeout(15, TimeUnit.SECONDS).readTimeout(15, TimeUnit.SECONDS).build()
 
     @Singleton
     @Provides
     fun provideApiService(okHttpClient: OkHttpClient): ApiService {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://gateway.marvel.com:443/v1/public/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build()
+        val retrofit = Retrofit.Builder().baseUrl("https://gateway.marvel.com:443/v1/public/")
+            .addConverterFactory(GsonConverterFactory.create()).client(okHttpClient).build()
         return retrofit.create(ApiService::class.java)
     }
 
