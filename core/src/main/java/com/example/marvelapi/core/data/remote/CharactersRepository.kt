@@ -2,7 +2,6 @@ package com.example.marvelapi.core.data.remote
 
 import com.example.marvelapi.core.data.AppResult
 import com.example.marvelapi.core.data.local.ILocalDataSource
-import com.example.marvelapi.core.data.local.LocalDataSource
 import com.example.marvelapi.core.data.local.entity.CharactersEntity
 import com.example.marvelapi.core.data.local.entity.CharactersStuffEntity
 import com.example.marvelapi.core.data.local.entity.ThumbnailEntity
