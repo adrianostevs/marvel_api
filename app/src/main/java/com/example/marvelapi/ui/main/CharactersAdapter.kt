@@ -18,7 +18,7 @@ class CharactersAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Characters) {
             binding.apply {
-                val urlImage = "${item.thumbnail?.path}.${item.thumbnail?.extension}"
+                val urlImage = "${item.thumbnail.path}.${item.thumbnail.extension}"
                 Glide.with(aivImage)
                     .load(urlImage)
                     .into(aivImage)

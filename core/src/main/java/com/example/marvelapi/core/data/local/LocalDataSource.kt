@@ -10,17 +10,22 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class LocalDataSource @Inject constructor(private val charactersDao: CharactersDao) {
+class LocalDataSource @Inject constructor(private val charactersDao: CharactersDao) :
+    ILocalDataSource {
 
-    fun getAllCharacters() : Flow<List<CharactersStuffEntity>> = charactersDao.getAllCharacters()
+    override fun getAllCharacters(): Flow<List<CharactersStuffEntity>> =
+        charactersDao.getAllCharacters()
 
-    fun getCharactersById(characterId: Int) : Flow<CharactersStuffEntity> = charactersDao.getCharactersById(characterId)
+    override fun getCharactersById(characterId: Int): Flow<CharactersStuffEntity> =
+        charactersDao.getCharactersById(characterId)
 
-    fun getFavoriteCharacters() : Flow<List<CharactersStuffEntity>> = charactersDao.getFavoriteCharacters()
+    override fun getFavoriteCharacters(): Flow<List<CharactersStuffEntity>> =
+        charactersDao.getFavoriteCharacters()
 
-    suspend fun insertCharactersStuff(characters: List<CharactersStuffEntity>) = charactersDao.insertCharactersStuff(characters)
+    override suspend fun insertCharactersStuff(characters: List<CharactersStuffEntity>) =
+        charactersDao.insertCharactersStuff(characters)
 
-    suspend fun setFavoriteCharacters(
+    override suspend fun setFavoriteCharacters(
         characters: CharactersEntity,
         newState: Boolean
     ): Flow<CharactersStuffEntity> =
