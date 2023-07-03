@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -16,9 +17,18 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+
+    val hostname = "gateway.marvel.com"
+
     @Singleton
     @Provides
     fun provideClient(): OkHttpClient = OkHttpClient.Builder()
+        .certificatePinner(
+            CertificatePinner.Builder()
+                .add(hostname, "sha256/Butq4SxnDn7zUeVFTPkJ0Vnftekkd4EsStOYzDvtzOg=")
+                .add(hostname, "sha256/980Ionqp3wkYtN9SZVgMzuWQzJta1nfxNPwTem1X0uc=")
+                .build()
+        )
         .addInterceptor(HttpLoggingInterceptor().setLevel(if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE))
         .connectTimeout(15, TimeUnit.SECONDS).readTimeout(15, TimeUnit.SECONDS).build()
 
