@@ -1,6 +1,7 @@
 package com.example.marvelapi.core.data.remote
 
 import com.example.marvelapi.core.data.AppResult
+import com.example.marvelapi.core.data.local.ILocalDataSource
 import com.example.marvelapi.core.data.local.LocalDataSource
 import com.example.marvelapi.core.data.local.entity.CharactersEntity
 import com.example.marvelapi.core.data.local.entity.CharactersStuffEntity
@@ -21,8 +22,8 @@ import javax.inject.Singleton
 
 @Singleton
 class CharactersRepository @Inject constructor(
-    private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource
+    private val remoteDataSource: IRemoteDataSource,
+    private val localDataSource: ILocalDataSource
 ) : ICharactersRepository {
 
     override fun getAllCharacters(): Flow<AppResult<List<Characters>>> =
@@ -45,7 +46,7 @@ class CharactersRepository @Inject constructor(
             }
 
             override suspend fun createCall(): Flow<AppResult<List<ListCharactersResponse>>> {
-                return remoteDataSource.getAllCharacters()
+                return remoteDataSource.getAllCharacters(limit = 20, offset = 0)
             }
 
             override suspend fun saveCallResult(data: List<ListCharactersResponse>) {
