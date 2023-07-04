@@ -75,7 +75,8 @@
         android:layout_marginBottom="@dimen/dimen_16"
         app:backgroundTint="@android:color/holo_red_dark"
         app:tint="@android:color/white"
-        android:src="@drawable/ic_favorite" />
+        android:src="@drawable/ic_favorite"
+        android:contentDescription="@string/floatingbuttonfavorite"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
