@@ -4,18 +4,19 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.devtools.ksp'
 }
 
 apply from: '../shared_dependency.gradle'
 
 android {
     namespace 'com.example.marvelapi'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.marvelapi"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
