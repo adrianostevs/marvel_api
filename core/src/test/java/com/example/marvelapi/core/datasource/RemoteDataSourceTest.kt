@@ -1,6 +1,8 @@
-package com.example.marvelapi.core.repository
+package com.example.marvelapi.core.datasource
 
-import android.util.Log
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.example.marvelapi.core.BuildConfig
+import com.example.marvelapi.core.MainDispatcherRule
 import com.example.marvelapi.core.data.AppResult
 import com.example.marvelapi.core.data.remote.RemoteDataSource
 import com.example.marvelapi.core.data.remote.model.response.BaseResponse
@@ -10,16 +12,24 @@ import com.example.marvelapi.core.data.remote.model.response.ThumbnailResponse
 import com.example.marvelapi.core.data.remote.network.ApiService
 import com.example.marvelapi.core.utils.HashExtension
 import com.example.marvelapi.core.utils.HashExtension.toHex
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 
+@ExperimentalCoroutinesApi
 class RemoteDataSourceTest {
+
+    @get:Rule
+    val instantExecutorRule = InstantTaskExecutorRule()
+
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     @Mock
     lateinit var apiService: ApiService
@@ -45,11 +55,11 @@ class RemoteDataSourceTest {
                     thumbnail = ThumbnailResponse(path = "http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784", extension = "jpg")
                 )
             )
-            val privateKey = ""
-            val apiKey = ""
-            val timeStamp = ""
+            val privateKey = BuildConfig.PRIVATE_KEY
+            val apiKey = BuildConfig.API_KEY
+            val timeStamp = System.currentTimeMillis().toString()
             val hashed = HashExtension.md5(timeStamp + privateKey + apiKey).toHex()
-            val actualResponse = `when`(
+            `when`(
                 apiService.getListCharacters(
                     timeStamp = timeStamp,
                     apiKey = apiKey,
@@ -58,15 +68,14 @@ class RemoteDataSourceTest {
                     offset = 0
                 )
             ).thenReturn(BaseResponse(data = DataResponse(results = listCharactersResponse)))
-            Assert.assertNotNull(actualResponse)
 
-            val result = remoteDataSource.getAllCharacters(limit = 1, offset = 0)
+            val result = remoteDataSource.getAllCharacters(limit = 1, offset = 0, timeStamp = timeStamp)
 
             result.collect { result ->
                 if (result is AppResult.Success) {
-                    Assert.assertEquals(listCharactersResponse.size, result.data?.size)
+                    Assert.assertEquals(listCharactersResponse, result.data)
                 } else {
-                    Assert.fail("Should Success ${result.data} && ${result.message}")
+                    Assert.fail("Should Success")
                 }
             }
         }
@@ -75,6 +84,7 @@ class RemoteDataSourceTest {
     @Test
     fun getAllCharactersFailure() {
         runBlocking {
+            val timeStamp = System.currentTimeMillis().toString()
             val errorMessage = "Something went wrong"
             val listCharactersResponse = arrayListOf<ListCharactersResponse>()
             listCharactersResponse.add(
@@ -91,7 +101,7 @@ class RemoteDataSourceTest {
                 limit = 10,
                 offset = 0)).thenThrow(RuntimeException(errorMessage))
 
-            val result = remoteDataSource.getAllCharacters(limit = 10, offset = 0)
+            val result = remoteDataSource.getAllCharacters(limit = 10, offset = 0, timeStamp = timeStamp)
 
             result.collect { result ->
                 if (result is AppResult.Error) {

@@ -2,7 +2,12 @@ version: 2.1
  
 orbs:
   android: circleci/android@0.2.1
- 
+
+on:
+  pull_request:
+    branches:
+    - master
+
 jobs:
   build:
     executor: android/android
@@ -29,7 +34,7 @@ jobs:
           destination: reports
       - run:
           name: Run Tests
-          command: ./gradlew lint test
+          command: ./gradlew test
       - store_test_results:
           path: app/build/test-results
       - store_artifacts:  

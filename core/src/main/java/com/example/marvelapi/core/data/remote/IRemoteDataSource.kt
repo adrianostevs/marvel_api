@@ -5,5 +5,5 @@ import com.example.marvelapi.core.data.remote.model.response.ListCharactersRespo
 import kotlinx.coroutines.flow.Flow
 
 interface IRemoteDataSource {
-    suspend fun getAllCharacters(limit: Int, offset: Int): Flow<AppResult<List<ListCharactersResponse>>>
+    suspend fun getAllCharacters(limit: Int, offset: Int, timeStamp: String): Flow<AppResult<List<ListCharactersResponse>>>
 }
