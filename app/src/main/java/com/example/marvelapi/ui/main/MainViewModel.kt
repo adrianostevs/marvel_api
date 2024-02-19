@@ -9,5 +9,5 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(charactersUseCase: CharactersUseCase) : ViewModel() {
 
-    val charactersList = charactersUseCase.getAllCharacters().asLiveData()
+    val charactersList = charactersUseCase.getAllCharacters(System.currentTimeMillis().toString()).asLiveData()
 }

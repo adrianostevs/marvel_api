@@ -9,8 +9,8 @@ import javax.inject.Inject
 class CharactersInteractor @Inject constructor(private val charactersRepository: ICharactersRepository) :
     CharactersUseCase {
 
-    override fun getAllCharacters(): Flow<AppResult<List<Characters>>> {
-        return charactersRepository.getAllCharacters()
+    override fun getAllCharacters(timeStamp: String): Flow<AppResult<List<Characters>>> {
+        return charactersRepository.getAllCharacters(timeStamp)
     }
 
     override fun setFavoriteCharacter(characters: Characters, state: Boolean): Flow<Characters> {

@@ -25,7 +25,7 @@ class CharactersRepository @Inject constructor(
     private val localDataSource: ILocalDataSource
 ) : ICharactersRepository {
 
-    override fun getAllCharacters(): Flow<AppResult<List<Characters>>> =
+    override fun getAllCharacters(timeStamp: String): Flow<AppResult<List<Characters>>> =
         object : NetworkBoundResource<List<Characters>, List<ListCharactersResponse>>() {
             override fun loadFromDb(): Flow<List<Characters>> {
                 return localDataSource.getAllCharacters().map {
@@ -45,7 +45,7 @@ class CharactersRepository @Inject constructor(
             }
 
             override suspend fun createCall(): Flow<AppResult<List<ListCharactersResponse>>> {
-                return remoteDataSource.getAllCharacters(limit = 20, offset = 0)
+                return remoteDataSource.getAllCharacters(limit = 20, offset = 0, timeStamp)
             }
 
             override suspend fun saveCallResult(data: List<ListCharactersResponse>) {
@@ -124,7 +124,7 @@ class CharactersRepository @Inject constructor(
         )
     }
 
-    private fun CharactersStuffEntity.toCharacterDomain(): Characters {
+    fun CharactersStuffEntity.toCharacterDomain(): Characters {
         return Characters(
             id = this.characters.id,
             name = this.characters.name,

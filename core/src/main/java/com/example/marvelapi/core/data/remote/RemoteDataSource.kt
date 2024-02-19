@@ -19,13 +19,13 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
 
     override suspend fun getAllCharacters(
         limit: Int,
-        offset: Int
+        offset: Int,
+        timeStamp: String
     ): Flow<AppResult<List<ListCharactersResponse>>> = flow<AppResult<List<ListCharactersResponse>>> {
         coroutineScope {
             try {
                 val apiKey = BuildConfig.API_KEY
                 val privateKey = BuildConfig.PRIVATE_KEY
-                val timeStamp = System.currentTimeMillis().toString()
                 val hashed = HashExtension.md5(timeStamp + privateKey + apiKey).toHex()
                 val response = apiService.getListCharacters(limit = limit, offset = offset, timeStamp = timeStamp, apiKey = apiKey, hash = hashed)
                 val listData = response.data?.results
