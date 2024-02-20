@@ -6,8 +6,8 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/base:2024.01
       - image: cimg/android:2023.08
+      - image: cimg/base:2024.01
 
     working_directory: ~/code
 
