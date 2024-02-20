@@ -5,7 +5,7 @@ jobs:
     resource_class: arm.medium
     docker:
       - image: cimg/base:2024.01
-      - image: circleci/android:api-34
+      - image: circleci/android:api-30
 
     working_directory: ~/code
 
