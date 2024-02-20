@@ -2,12 +2,9 @@ version: 2.1
 
 jobs:
   build:
-    machine:
-      image: ubuntu-2204:2024.01.1
     resource_class: arm.medium
     docker:
-      - image: circleci/openjdk:22-ea-17-jdk-slim-bullseye
-      - image: circleci/android:api-30
+      - image: cimg/base:2024.01
 
     working_directory: ~/code
 
