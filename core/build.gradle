@@ -9,11 +9,11 @@ apply from: '../shared_dependency.gradle'
 
 android {
     namespace 'com.example.marvelapi.core'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         minSdk 24
-        targetSdk 33
+        targetSdk 34
 
         buildConfigField("String", "API_KEY", '"cc52740d9acf2158f5156a6c10c004ba"')
         buildConfigField("String", "PRIVATE_KEY", '"9fb2d8300bde2300a1c65d980618fe9f85bff8d9"')
@@ -32,11 +32,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 

@@ -6,7 +6,7 @@ plugins {
 apply from: '../shared_dependency.gradle'
 android {
     namespace 'com.example.marvelapi.favorite'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         minSdk 24
@@ -14,6 +14,13 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
     }
 }
 
