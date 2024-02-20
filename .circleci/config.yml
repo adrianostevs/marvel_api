@@ -10,8 +10,6 @@ jobs:
 
     steps:
       - checkout
-      - run: sudo apt-get update && sudo apt-get install -y cowsay
-      - run: cowsay Marvel Rocks!
 
       - run:
           name: Install Java
