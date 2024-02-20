@@ -1,5 +1,10 @@
 version: 2.1
 
+on:
+  pull_request:
+    branches:
+      - main
+
 orbs:
   android: circleci/android@2.3.0
 
