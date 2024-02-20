@@ -5,7 +5,6 @@ orbs:
 
 jobs:
   build:
-    resource_class: arm.medium
     docker:
       - image: cimg/base:2024.01
       - image: cimg/android:2023.08
