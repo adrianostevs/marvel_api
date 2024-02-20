@@ -1,11 +1,14 @@
 version: 2.1
 
+orbs:
+  android: circleci/android@2.3.0
+
 jobs:
   build:
     resource_class: arm.medium
     docker:
       - image: cimg/base:2024.01
-      - image: circleci/android:api-latest
+      - image: cimg/android:2023.08
 
     working_directory: ~/code
 
