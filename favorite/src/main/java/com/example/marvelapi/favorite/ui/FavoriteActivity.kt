@@ -1,9 +1,12 @@
 package com.example.marvelapi.favorite.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.marvelapi.base.BaseActivity
 import com.example.marvelapi.di.FavoriteModule
@@ -16,7 +19,7 @@ import com.example.marvelapi.utils.ConstantsValue
 import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
 
-class FavoriteActivity : BaseActivity<ActivityFavoriteBinding>() {
+class FavoriteActivity : AppCompatActivity() {
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -27,9 +30,11 @@ class FavoriteActivity : BaseActivity<ActivityFavoriteBinding>() {
 
     private var mCharactersAdapter : CharactersAdapter? = null
 
-    override fun onViewBinding() = ActivityFavoriteBinding.inflate(layoutInflater)
+    private var binding : ActivityFavoriteBinding? = null
 
-    override fun onCreated(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+        binding = ActivityFavoriteBinding.inflate(layoutInflater)
         DaggerFavoriteComponent
             .builder()
             .context(this)
@@ -46,7 +51,7 @@ class FavoriteActivity : BaseActivity<ActivityFavoriteBinding>() {
             intent.putExtra(ConstantsValue.DATA, it)
             startActivity(intent)
         }
-        viewBinding.apply {
+        binding?.apply {
             rvList.adapter = mCharactersAdapter
             rvList.layoutManager = LinearLayoutManager(this@FavoriteActivity)
             mbBack.setOnClickListener {
@@ -59,12 +64,12 @@ class FavoriteActivity : BaseActivity<ActivityFavoriteBinding>() {
     private fun observeLiveData() {
         mFavoriteViewModel.characterFavorite.observe(this) {
             if (it.isNotEmpty()) {
-                viewBinding.rvList.visibility = View.VISIBLE
-                viewBinding.mbBack.visibility = View.GONE
+                binding?.rvList?.visibility = View.VISIBLE
+                binding?.mbBack?.visibility = View.GONE
                 mCharactersAdapter?.submitList(it)
             } else {
-                viewBinding.rvList.visibility = View.GONE
-                viewBinding.mbBack.visibility = View.VISIBLE
+                binding?.rvList?.visibility = View.GONE
+                binding?.mbBack?.visibility = View.VISIBLE
             }
         }
     }
