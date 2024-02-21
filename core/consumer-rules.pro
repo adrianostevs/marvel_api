@@ -24,6 +24,12 @@
 -keep class * implements com.google.gson.TypeAdapterFactory
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer
+-keep,allowobfuscation,allowshrinking interface retrofit2.Call
+-keep,allowobfuscation,allowshrinking class retrofit2.Response
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+-keep class com.example.marvelapi.core.data.remote.model.response.**
+-keep class com.example.marvelapi.core.domain.model.**
+-keep class com.example.marvelapi.core.data.local.entity.**
 
 # Prevent R8 from leaving Data object members always null
 -keepclassmembers,allowobfuscation class * {

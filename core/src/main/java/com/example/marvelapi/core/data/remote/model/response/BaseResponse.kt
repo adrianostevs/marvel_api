@@ -1,5 +1,6 @@
 package com.example.marvelapi.core.data.remote.model.response
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 

@@ -1,5 +1,6 @@
 package com.example.marvelapi.core.data.remote
 
+import android.util.Log
 import com.example.marvelapi.core.BuildConfig
 import com.example.marvelapi.core.data.AppResult
 import com.example.marvelapi.core.data.remote.model.response.ListCharactersResponse

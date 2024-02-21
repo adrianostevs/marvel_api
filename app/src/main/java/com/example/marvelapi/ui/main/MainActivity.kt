@@ -1,7 +1,9 @@
 package com.example.marvelapi.ui.main
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +38,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 installRegistrationModule()
             }
         }
+        mMainViewModel.getAllCharacters(System.currentTimeMillis().toString())
         observeLiveData()
     }
 
@@ -74,7 +77,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     installRegistrationModule()
                 }
                 .addOnFailureListener {
-
                 }
         }
     }
